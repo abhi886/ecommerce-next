@@ -19,7 +19,7 @@ export async function getStaticProps() {
 export default function Home({
   products,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return <div>{JSON.stringify(products, null, "\t")}</div>;
+  return <div className='root'>{JSON.stringify(products, null, "\t")}</div>;
 }
 
 Home.Layout = Layout;
