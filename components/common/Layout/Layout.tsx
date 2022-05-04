@@ -1,11 +1,11 @@
-import { FC } from "react";
-import style from "./Layout.module.css";
+import { FC, ReactNode } from "react";
+import s from "./Layout.module.css";
 
-const Layout: FC = ({ children }) => {
+function Layout({ children }) {
   return (
-    <div className={style.root}>
+    <div className={s.root}>
       <main className='fit'>{children}</main>
     </div>
   );
-};
+}
 export default Layout;
