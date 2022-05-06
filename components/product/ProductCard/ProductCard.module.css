@@ -1,5 +1,5 @@
 .root {
-  @apply relative max-h-full;
+  @apply relative;
 
   &:hover {
     & .productBg:before {

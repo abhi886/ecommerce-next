@@ -4,7 +4,7 @@ import getAllProducts from "@framework/product/get-all-products";
 import { getConfig } from "@framework/api/config";
 import { Layout } from "@components/common";
 import ProductCard from "../components/product/ProductCard/ProductCard";
-import { Grid } from "@components/ui";
+import { Grid, Hero } from "@components/ui";
 
 export async function getStaticProps() {
   const config = getConfig();
@@ -28,6 +28,7 @@ export default function Home({
           <ProductCard key={product.id} product={product} />
         ))}
       </Grid>
+      <Hero headline='This is Headline' description='This is desc'></Hero>
     </div>
   );
 }
