@@ -4,7 +4,7 @@ import getAllProducts from "@framework/product/get-all-products";
 import { getConfig } from "@framework/api/config";
 import { Layout } from "@components/common";
 import ProductCard from "../components/product/ProductCard/ProductCard";
-import { Grid, Hero } from "@components/ui";
+import { Grid, Hero, Marquee } from "@components/ui";
 
 export async function getStaticProps() {
   const config = getConfig();
@@ -25,7 +25,7 @@ export default function Home({
     <div className='root'>
       <Grid>
         {products.slice(0, 3).map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} variant='simple' />
         ))}
       </Grid>
       <Hero
@@ -37,6 +37,11 @@ It is a long established fact that a reader will be distracted by the readable c
 
 "
       ></Hero>
+      <Marquee>
+        {products.slice(0, 3).map((product) => (
+          <ProductCard key={product.id} product={product} variant='slim' />
+        ))}
+      </Marquee>
     </div>
   );
 }
