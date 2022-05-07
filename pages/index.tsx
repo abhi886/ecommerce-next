@@ -42,6 +42,11 @@ It is a long established fact that a reader will be distracted by the readable c
           <ProductCard key={product.id} product={product} variant='slim' />
         ))}
       </Marquee>
+      <Grid layout='B'>
+        {products.slice(0, 3).map((product) => (
+          <ProductCard key={product.id} product={product} variant='simple' />
+        ))}
+      </Grid>
     </div>
   );
 }

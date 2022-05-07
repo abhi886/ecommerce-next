@@ -23,5 +23,8 @@
 }
 
 .layoutB {
-  color: blue;
+  & > *:nth-child(6n + 2),
+  & > *:nth-child(6n + 4) {
+    @apply md:col-span-2 md:row-span-2;
+  }
 }
