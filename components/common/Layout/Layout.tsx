@@ -3,10 +3,13 @@ import s from "./Layout.module.css";
 import { Footer, Navbar } from "@components/common";
 import { CartSidebar } from "@components/cart"
 import { Sidebar } from "@components/ui"
+import {useUI} from "@components/ui/context"
 
 
 
 function Layout({ children }) {
+  const ui = useUI();
+  console.log(ui);
   return (
     <div className={s.root}>
       <Navbar />
