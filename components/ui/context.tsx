@@ -4,7 +4,7 @@
 // Provide the context
 // Consume the context
 
-import { createContext, FC, useContext, useState } from "react";
+import { createContext, FC, useContext, useReducer } from "react";
 
 // Interface for function that will be responsible to close
 // and open sidebar
@@ -38,20 +38,40 @@ const UIContext = createContext({
   ...stateModifiers,
   ...initialState,
 });
+type Action = { type: "OPEN_SIDEBAR" | "CLOSE_SIDEBAR" };
+
+function uiReducer(state: StateValues, action: Action) {
+  switch (action.type) {
+    case "OPEN_SIDEBAR": {
+      return {
+        isSidebarOpen: true,
+      };
+    }
+    case "CLOSE_SIDEBAR": {
+      return {
+        isSidebarOpen: false,
+      };
+    }
+  }
+}
+
 // Context.provider - PROVIDE THE CONTEXT to all of _app.js
 // UIProvider wraps all the pages. This function wraps all the
 // components in _app.js so that the sidebar functionalities is available
 // down the components tree. Yo chai basic implementation of context ho.
 // Lecture 123. UI Provider.
 export const UIProvider: FC = ({ children }) => {
-  const openSidebar = () =>   ;
-  const closeSidebar = () => alert("Closing Sidebar");
-  const uiState = {
+  const [state, dispatch] = useReducer(uiReducer, initialState);
+
+  const openSidebar = () => dispatch({ type: "OPEN_SIDEBAR" });
+  const closeSidebar = () => dispatch({ type: "CLOSE_SIDEBAR" });
+
+  const value = {
+    ...state,
     openSidebar,
     closeSidebar,
-    isSidebarOpen: true,
   };
-  return <UIContext.Provider value={uiState}>{children}</UIContext.Provider>;
+  return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
 };
 // context.consumer CONSUME CONtEXT TO USE IN COMPONENTS
 // Lecture 123: UI Provider
