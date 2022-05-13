@@ -1,18 +1,61 @@
+// types for context
+// default values
+// Create a context
+// Provide the context
+// Consume the context
+
 import { createContext, FC, useContext, useState } from "react";
 
-const UIContext = createContext<{ [key: string]: any }>({
-  uiState: "defaultState",
-});
+// Interface for function that will be responsible to close
+// and open sidebar
+export interface StateModifiers {
+  openSidebar: () => void;
+  closeSidebar: () => void;
+}
 
+// Statevalue is interface for the value of the sate
+export interface StateValues {
+  isSidebarOpen: boolean;
+}
+
+// stateModifier object that will contain the actual function
+// to open and close the sidebar
+// Initial State
+const stateModifiers = {
+  openSidebar: () => {},
+  closeSidebar: () => {},
+};
+
+// initial sitate
+const initialState = { isSidebarOpen: false };
+
+type State = StateValues & StateModifiers;
+
+// React.createContext CREATE CONTEXT: UI Context is the context for the current state that is defaultState
+// State modifiers and initial State is the default values. Provider bata value pass
+// vayena vane matrai yo default values use hunxa
+const UIContext = createContext({
+  ...stateModifiers,
+  ...initialState,
+});
+// Context.provider - PROVIDE THE CONTEXT to all of _app.js
+// UIProvider wraps all the pages. This function wraps all the
+// components in _app.js so that the sidebar functionalities is available
+// down the components tree. Yo chai basic implementation of context ho.
+// Lecture 123. UI Provider.
 export const UIProvider: FC = ({ children }) => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const openSidebar = () =>   ;
+  const closeSidebar = () => alert("Closing Sidebar");
   const uiState = {
-    isSidebarOpen,
-    setSidebarOpen,
+    openSidebar,
+    closeSidebar,
+    isSidebarOpen: true,
   };
   return <UIContext.Provider value={uiState}>{children}</UIContext.Provider>;
 };
-
+// context.consumer CONSUME CONtEXT TO USE IN COMPONENTS
+// Lecture 123: UI Provider
+// Function that will provide the context to other components to consume it.
 export const useUI = () => {
   const context = useContext(UIContext);
   return context;
