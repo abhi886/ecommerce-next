@@ -12,7 +12,6 @@ const Grid: FC<Props> = ({ children, layout = "A" }) => {
     [s.layoutA]: layout === "A",
     [s.layoutB]: layout === "B",
   });
-  console.log(rootClassName);
 
   return <div className={rootClassName}>{children}</div>;
 };
