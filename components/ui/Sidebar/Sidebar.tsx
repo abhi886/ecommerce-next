@@ -1,17 +1,22 @@
-import { FC } from "react";
+import { FC, useRef, useEffect } from "react";
 
 interface Props {
   children: any;
   isOpen: boolean;
-  onClose:() => void
+  onClose: () => void;
 }
 
 const Sidebar: FC<Props> = ({ children, isOpen, onClose }) => {
-  console.log(isOpen);
+  const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
+  useEffect(() => {
+    if (ref.current) {
+      console.log(ref.current);
+    }
+  }, [isOpen]);
   return (
     <>
       {isOpen ? (
-        <div className='fixed inset-0 overflow-hidden h-full z-50'>
+        <div ref={ref} className='fixed inset-0 overflow-hidden h-full z-50'>
           <div className='absolute inset-0 overflow-hidden'>
             <div
               onClick={onClose}
