@@ -1,6 +1,6 @@
 import React from "react";
 import { InferGetStaticPropsType } from "next";
-import getAllProducts from "@framework/product/get-all-products";
+import { getAllProducts } from "@framework/product";
 import { getConfig } from "@framework/api/config";
 import { Layout } from "@components/common";
 import ProductCard from "../components/product/ProductCard/ProductCard";
