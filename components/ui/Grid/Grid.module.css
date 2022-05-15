@@ -1,0 +1,30 @@
+.root {
+  @apply grid gap-0 grid-cols-1;
+  & > * {
+    @apply row-span-1 overflow-hidden;
+
+    @screen lg {
+      height: inherit;
+    }
+  }
+}
+
+@screen md {
+  .root {
+    @apply grid-cols-3 grid-rows-2;
+  }
+}
+
+.layoutA {
+  & > *:nth-child(6n + 1),
+  & > *:nth-child(6n + 5) {
+    @apply md:col-span-2 md:row-span-2;
+  }
+}
+
+.layoutB {
+  & > *:nth-child(6n + 2),
+  & > *:nth-child(6n + 4) {
+    @apply md:col-span-2 md:row-span-2;
+  }
+}

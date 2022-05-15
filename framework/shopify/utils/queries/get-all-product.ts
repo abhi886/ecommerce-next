@@ -34,7 +34,7 @@ const productConnection = `    pageInfo {
   }`;
 
 const getAllProductsQuery = `
-query getAllProducts($first: Int = 1) {
+query getAllProducts($first: Int = 3) {
   products(first: $first) {
 ${productConnection}
 }
