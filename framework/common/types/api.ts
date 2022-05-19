@@ -4,7 +4,7 @@ export type ApiFetcherOptions = {
   variables?: Variables; // variable is a key value pair
 };
 export type Variables = {
-  [key: string]: string;
+  [key: string]: string | undefined;
 };
 export type ApiFetcherResults<T> = {
   data: T;

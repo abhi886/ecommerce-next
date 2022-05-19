@@ -24,6 +24,7 @@ const fetchApi = async <T>({
     }),
   });
   const { data, errors } = await res.json();
+
   if (errors) {
     // '' ?? 'foo'; // ''
     // 0 ?? 'foo'; // 0
