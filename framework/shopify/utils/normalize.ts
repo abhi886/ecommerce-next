@@ -54,7 +54,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     ...rest
   } = productNode;
 
-  const product = {
+  const product: any = {
     id,
     name,
     vendor,
