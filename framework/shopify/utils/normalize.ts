@@ -4,6 +4,7 @@ import {
   Product as ShopifyProduct,
   ProductOption,
   ProductVariantConnection,
+  SelectedOption,
 } from "../schema";
 import { Product } from "@common/types/product";
 const normalizeProductImages = ({ edges }: { edges: ImageEdge[] }) =>
@@ -43,18 +44,6 @@ const normalizeProductOption = ({
 };
 
 const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
-  // My way - works correct
-  // const result = edges.map((edge) => {
-
-  // return  {
-  //   id: edge.node.id,
-  //   title: edge.node.title,
-  //   sku: edge.node.sku,
-  // };
-
-  // });
-
-  // More Optimized way using modern js
   return edges.map(({ node }) => {
     const { id, selectedOptions, sku, title, priceV2, compareAtPriceV2 } = node;
     return {
@@ -64,6 +53,10 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
       price: +priceV2.amount,
       listPrice: +compareAtPriceV2?.amount,
       requiresShipping: true,
+      options: selectedOptions.map(({ name, value }: SelectedOption) => {
+        const option = { id, name, values: [value] };
+        return option;
+      }),
     };
   });
 };
@@ -91,9 +84,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     images: normalizeProductImages(imageConnection),
     price: normalizeProductPrice(priceRange.minVariantPrice),
     options: options
-      ? options
-          .filter((o) => o.name !== "Title")
-          .map((o) => normalizeProductOption(o))
+      ? options.filter((o) => o.name !== "Title").map((o) => o)
       : [],
     variants: variants ? normalizeProductVariants(variants) : [],
     ...rest,
