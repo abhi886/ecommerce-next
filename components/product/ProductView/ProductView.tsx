@@ -50,7 +50,14 @@ const ProductView: FC<Props> = ({ product }) => {
             </div>
           </section>
           <div>
-            <Button>Add to Cart</Button>
+            <Button
+              className='s.button'
+              onClick={() => {
+                alert("Hello World");
+              }}
+            >
+              Add to Cart
+            </Button>
           </div>
         </div>
       </div>
