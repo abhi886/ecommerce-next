@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Product } from "@common/types/product";
 import ProductSlider from "../ProductSlider/ProductSlider";
 import Button from "../../ui/Button/Button";
+import Swatch from "../Swatch";
 
 interface Props {
   product: Product;
@@ -45,8 +46,8 @@ const ProductView: FC<Props> = ({ product }) => {
               <div key={option.id} className='pb-4'>
                 <h2 className='uppercase font-medium'>{option.displayName}</h2>
                 <div className='flex flex-row py-4'>
-                  {option.values.map((ov) => (
-                    <div key={`${product.id}-${ov.label}`}>{ov.label}</div>
+                  {option.values.map((optValue) => (
+                    <Swatch key={`${product.id}-${optValue.label}`} label={optValue.label} color={optValue.hexColor}></Swatch>
                   ))}
                 </div>
               </div>
