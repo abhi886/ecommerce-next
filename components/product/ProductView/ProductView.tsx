@@ -1,5 +1,5 @@
+import { FC, useState } from "react";
 import cn from "classnames";
-import { FC } from "react";
 import s from "./ProductView.module.css";
 import { Container } from "@components/ui";
 import Image from "next/image";
@@ -13,6 +13,8 @@ interface Props {
 }
 
 const ProductView: FC<Props> = ({ product }) => {
+  const [choices, SetChoices] = useState({});
+  console.log(choices);
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
@@ -52,6 +54,12 @@ const ProductView: FC<Props> = ({ product }) => {
                       label={optValue.label}
                       color={optValue.hexColor}
                       variant={option.displayName}
+                      onClick={() =>
+                        SetChoices({
+                          ...choices,
+                          [option.displayName.toLowerCase()]: optValue.label,
+                        })
+                      }
                     ></Swatch>
                   ))}
                 </div>
