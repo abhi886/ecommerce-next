@@ -14,7 +14,7 @@ export interface ProductOptionValues {
 export interface ProductOption {
   id: string;
   displayName: string;
-  values: ProductOptionValues;
+  values: ProductOptionValues[];
 }
 export interface ProductVariants {
   id: string;
