@@ -84,7 +84,9 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     images: normalizeProductImages(imageConnection),
     price: normalizeProductPrice(priceRange.minVariantPrice),
     options: options
-      ? options.filter((o) => o.name !== "Title").map((o) => o)
+      ? options
+          .filter((o) => o.name !== "Title")
+          .map((o) => normalizeProductOption(o))
       : [],
     variants: variants ? normalizeProductVariants(variants) : [],
     ...rest,
