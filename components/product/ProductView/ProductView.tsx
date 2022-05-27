@@ -12,9 +12,13 @@ interface Props {
   product: Product;
 }
 
+type AvailableChoices = "color" | "size" | string;
+type Choices = {
+  [P in AvailableChoices]: string;
+};
+// Type of choces will be : Key could be anything from "color" |  "size" | string
 const ProductView: FC<Props> = ({ product }) => {
-  const [choices, SetChoices] = useState({});
-  console.log(choices);
+  const [choices, SetChoices] = useState<Choices>({});  
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
