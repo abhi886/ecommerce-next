@@ -18,7 +18,7 @@ type Choices = {
 };
 // Type of choces will be : Key could be anything from "color" |  "size" | string
 const ProductView: FC<Props> = ({ product }) => {
-  const [choices, SetChoices] = useState<Choices>({});  
+  const [choices, SetChoices] = useState<Choices>({});
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
@@ -52,20 +52,27 @@ const ProductView: FC<Props> = ({ product }) => {
               <div key={option.id} className='pb-4'>
                 <h2 className='uppercase font-medium'>{option.displayName}</h2>
                 <div className='flex flex-row py-4'>
-                  {option.values.map((optValue) => (
-                    <Swatch
-                      key={`${product.id}-${optValue.label}`}
-                      label={optValue.label}
-                      color={optValue.hexColor}
-                      variant={option.displayName}
-                      onClick={() =>
-                        SetChoices({
-                          ...choices,
-                          [option.displayName.toLowerCase()]: optValue.label,
-                        })
-                      }
-                    ></Swatch>
-                  ))}
+                  {option.values.map((optValue) => {
+                    console.log("choices", choices);
+                    const activeChoice =
+                      choices[option.displayName.toLowerCase()];
+                    console.log(activeChoice);
+                    return (
+                      <Swatch
+                        key={`${product.id}-${optValue.label}`}
+                        label={optValue.label}
+                        color={optValue.hexColor}
+                        variant={option.displayName}
+                        active={optValue.label.toLowerCase() === activeChoice}
+                        onClick={() =>
+                          SetChoices({
+                            ...choices,
+                            [option.displayName.toLowerCase()]: optValue.label,
+                          })
+                        }
+                      ></Swatch>
+                    );
+                  })}
                 </div>
               </div>
             ))}
