@@ -7,18 +7,16 @@ import { Product } from "@common/types/product";
 import ProductSlider from "../ProductSlider/ProductSlider";
 import Button from "../../ui/Button/Button";
 import Swatch from "../Swatch";
+import { Choices, getVariant } from "../helpers";
 
 interface Props {
   product: Product;
 }
 
-type AvailableChoices = "color" | "size" | string;
-type Choices = {
-  [P in AvailableChoices]: string;
-};
 // Type of choces will be : Key could be anything from "color" |  "size" | string
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, SetChoices] = useState<Choices>({});
+  const variant = getVariant(product, choices);
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
