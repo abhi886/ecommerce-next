@@ -5,7 +5,7 @@ export type Choices = {
   [P in AvailableChoices]: string;
 };
 
-export function getVariant(product: Product, choices: Choices) {
+export const getVariant=(product: Product, choices: Choices) =>{
   return product.variants.find((variant) => {
     return variant.options.every((variantOption) => {
       const optionName = variantOption.displayName.toLowerCase();
