@@ -17,6 +17,7 @@ interface Props {
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, SetChoices] = useState<Choices>({});
   const variant = getVariant(product, choices);
+  console.log("variant-->",variant);
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
@@ -51,7 +52,6 @@ const ProductView: FC<Props> = ({ product }) => {
                 <h2 className='uppercase font-medium'>{option.displayName}</h2>
                 <div className='flex flex-row py-4'>
                   {option.values.map((optValue) => {
-                    console.log("choices", choices);
                     const activeChoice =
                       choices[option.displayName.toLowerCase()];
                     console.log(activeChoice);

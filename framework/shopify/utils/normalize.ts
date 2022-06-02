@@ -54,7 +54,11 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
       listPrice: +compareAtPriceV2?.amount,
       requiresShipping: true,
       options: selectedOptions.map(({ name, value }: SelectedOption) => {
-        const option = { id, name, values: [value] };
+        const option = normalizeProductOption({
+          id,
+          name,
+          values: [value],
+        });
         return option;
       }),
     };
