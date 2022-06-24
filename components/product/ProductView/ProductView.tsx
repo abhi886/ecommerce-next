@@ -8,6 +8,7 @@ import ProductSlider from "../ProductSlider/ProductSlider";
 import Button from "../../ui/Button/Button";
 import Swatch from "../Swatch";
 import { Choices, getVariant } from "../helpers";
+import { useUI } from "@components/ui/context";
 
 interface Props {
   product: Product;
@@ -16,8 +17,20 @@ interface Props {
 // Type of choces will be : Key could be anything from "color" |  "size" | string
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, SetChoices] = useState<Choices>({});
+
+  const { openSidebar } = useUI();
   const variant = getVariant(product, choices);
-  console.log("variant-->",variant);
+  const addToCart = () => {
+    try {
+      const item = {
+        productId: String(product.id), // this will always return product id as string even if its a number
+        variantId: variant?.id,
+        variantOption: variant?.options,
+      };
+      alert(JSON.stringify(item));
+      openSidebar();
+    } catch {}
+  };
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
@@ -54,7 +67,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   {option.values.map((optValue) => {
                     const activeChoice =
                       choices[option.displayName.toLowerCase()];
-                    console.log(activeChoice);
+
                     return (
                       <Swatch
                         key={`${product.id}-${optValue.label}`}
@@ -79,12 +92,7 @@ const ProductView: FC<Props> = ({ product }) => {
             </div>
           </section>
           <div>
-            <Button
-              className='s.button'
-              onClick={() => {
-                alert("Hello World");
-              }}
-            >
+            <Button className='s.button' onClick={addToCart}>
               Add to Cart
             </Button>
           </div>
