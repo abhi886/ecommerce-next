@@ -9,6 +9,7 @@ import Button from "../../ui/Button/Button";
 import Swatch from "../Swatch";
 import { Choices, getVariant } from "../helpers";
 import { useUI } from "@components/ui/context";
+import useAddItem from "@framework/cart/use-add-item";
 
 interface Props {
   product: Product;
@@ -17,8 +18,8 @@ interface Props {
 // Type of choces will be : Key could be anything from "color" |  "size" | string
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, SetChoices] = useState<Choices>({});
-
   const { openSidebar } = useUI();
+  const addItem = useAddItem();
   const variant = getVariant(product, choices);
   const addToCart = () => {
     try {
@@ -27,7 +28,10 @@ const ProductView: FC<Props> = ({ product }) => {
         variantId: variant?.id,
         variantOption: variant?.options,
       };
-      alert(JSON.stringify(item));
+      // alert(JSON.stringify(item));
+      const result = addItem(item);
+      alert(JSON.stringify(result));
+      console.log(result);
       openSidebar();
     } catch {}
   };
