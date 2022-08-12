@@ -4,7 +4,7 @@ import { Footer, Navbar } from "@components/common";
 import { CartSidebar } from "@components/cart";
 import { Sidebar } from "@components/ui";
 import { useUI } from "@components/ui/context";
-import { ApiProvider } from "@common";
+import { ApiProvider } from "@framework";
 
 function Layout({ children }) {
   const { isSidebarOpen, closeSidebar } = useUI();
