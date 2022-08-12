@@ -7,18 +7,34 @@ import { Product } from "@common/types/product";
 import ProductSlider from "../ProductSlider/ProductSlider";
 import Button from "../../ui/Button/Button";
 import Swatch from "../Swatch";
+import { Choices, getVariant } from "../helpers";
+import { useUI } from "@components/ui/context";
+import useAddItem from "@framework/cart/use-add-item";
 
 interface Props {
   product: Product;
 }
 
-type AvailableChoices = "color" | "size" | string;
-type Choices = {
-  [P in AvailableChoices]: string;
-};
 // Type of choces will be : Key could be anything from "color" |  "size" | string
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, SetChoices] = useState<Choices>({});
+  const { openSidebar } = useUI();
+  const addItem = useAddItem();
+  const variant = getVariant(product, choices);
+  const addToCart = () => {
+    try {
+      const item = {
+        productId: String(product.id), // this will always return product id as string even if its a number
+        variantId: variant?.id,
+        variantOption: variant?.options,
+      };
+      // alert(JSON.stringify(item));
+      const result = addItem(item);
+      alert(JSON.stringify(result));
+      console.log(result);
+      openSidebar();
+    } catch {}
+  };
   return (
     <Container>
       <div className={cn(s.root, "fit", "mb-5")}>
@@ -53,10 +69,9 @@ const ProductView: FC<Props> = ({ product }) => {
                 <h2 className='uppercase font-medium'>{option.displayName}</h2>
                 <div className='flex flex-row py-4'>
                   {option.values.map((optValue) => {
-                    console.log("choices", choices);
                     const activeChoice =
                       choices[option.displayName.toLowerCase()];
-                    console.log(activeChoice);
+
                     return (
                       <Swatch
                         key={`${product.id}-${optValue.label}`}
@@ -81,12 +96,7 @@ const ProductView: FC<Props> = ({ product }) => {
             </div>
           </section>
           <div>
-            <Button
-              className='s.button'
-              onClick={() => {
-                alert("Hello World");
-              }}
-            >
+            <Button className='s.button' onClick={addToCart}>
               Add to Cart
             </Button>
           </div>

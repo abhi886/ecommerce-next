@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import s from "./Swatch.module.css";
 import Check from "../../icons/Check";
 import cn from "classnames";
+import { isDark } from "@lib/color";
 interface Props {
   active?: boolean;
   color?: string;
@@ -16,6 +17,7 @@ const Swatch: FC<Props> = ({ color, label, variant, active, ...rest }) => {
     [s.active]: active, // if active is true then active class is applied,
     [s.color]: color,
     [s.size]: variant === "size",
+    [s.dark]: color && isDark(color),
   });
   return (
     <button
