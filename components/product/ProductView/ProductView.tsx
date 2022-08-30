@@ -28,7 +28,6 @@ const ProductView: FC<Props> = ({ product }) => {
         variantId: variant?.id,
         variantOption: variant?.options,
       };
-      // alert(JSON.stringify(item));
       const result = addItem(item);
       alert(JSON.stringify(result));
       console.log(result);
